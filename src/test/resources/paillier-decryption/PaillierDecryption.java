@@ -31,12 +31,15 @@ class PaillierDecryption {
         helper = new Helpers();
 
         // Calculate decryption
-        encPowLambda = helper.exponentiate(encryptedResult, privateLambda); // Will overflow
+        encPowLambda = (((encryptedResult * encryptedResult) * encryptedResult) * encryptedResult);
+        //encPowLambda = helper.exponentiate(encryptedResult, privateLambda); // Will overflow (1003875856)
         nSquared = publicN * publicN; // Will overflow for large N's
         modNSquared = encPowLambda % nSquared;
         boundToL = helper.L(modNSquared, publicN);
         multByMu = boundToL * privateMu;
         result = multByMu % publicN;
+
+        System.out.println(result);
 
         Prover.answer(result == decryptedResult);
     }
