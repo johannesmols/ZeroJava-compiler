@@ -31,8 +31,7 @@ class PaillierDecryption {
         helper = new Helpers();
 
         // Calculate decryption
-        encPowLambda = (((encryptedResult * encryptedResult) * encryptedResult) * encryptedResult);
-        //encPowLambda = helper.exponentiate(encryptedResult, privateLambda); // Will overflow (1003875856)
+        encPowLambda = helper.exponentiateBitwise(encryptedResult, privateLambda); // Will overflow quickly
         nSquared = publicN * publicN; // Will overflow for large N's
         modNSquared = encPowLambda % nSquared;
         boundToL = helper.L(modNSquared, publicN);
@@ -46,13 +45,30 @@ class PaillierDecryption {
 }
 
 class Helpers {
-    // Overflows easily for high exponents
+    // Exponentiate a base and an exponent
+    // Overflows very fast, even if result should be in integer range (use bitwise method below)
     public int exponentiate(int base, int exponent) {
         int i = 0;
         int result = base;
         while (i < (exponent - 1)) {
             result *= base;
             i++;
+        }
+        return result;
+    }
+
+    // Fast exponentation using bit manipulation. O(log n) complexity
+    // Source: https://www.geeksforgeeks.org/fast-exponention-using-bit-manipulation/
+    public int exponentiateBitwise(int base, int exponent) {
+        int last_bit;
+        int result = 1;
+        while (exponent > 0) {
+            last_bit = (exponent & 1);
+            if (last_bit > 0) {
+                result *= base;
+            }
+            base *= base;
+            exponent >>= 1;
         }
         return result;
     }
