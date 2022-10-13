@@ -1,16 +1,16 @@
 class PaillierDecryption {
     public static void main(String[] args) {
         // Result components
-        int decryptedResult;
-        int encryptedResult;
+        int encryptedResult = PublicTape.read();
+        int decryptedResult = PublicTape.read();
 
         // Key components
-        int publicN;
-        int privateLambda;
-        int privateMu;
+        int publicN = PublicTape.read();
+        int privateLambda = PrivateTape.read();
+        int privateMu = PrivateTape.read();
 
-        // Intermediate variables
-        Helpers helper;
+        // Helper and intermediate variables
+        Helpers helper = new Helpers();
         int encPowLambda;
         int nSquared;
         int modNSquared;
@@ -19,16 +19,6 @@ class PaillierDecryption {
 
         // Result
         int result;
-
-        // Read data from tapes
-        publicN = PublicTape.read();
-        decryptedResult = PublicTape.read();
-        encryptedResult = PublicTape.read();
-        privateLambda = PrivateTape.read();
-        privateMu = PrivateTape.read();
-
-        // Initialize helper
-        helper = new Helpers();
 
         // Calculate decryption
         encPowLambda = helper.exponentiateBitwise(encryptedResult, privateLambda); // Will overflow quickly
