@@ -8,16 +8,28 @@ class BigIntTest {
         // I.e. (2<<14)-1 for 16-bit, (2<<30)-1 for 32-bit, (2<<62)-1 for 64-bit
         int base = (2 << 62) - 1;
 
-        // Read the number of digits from the file, and then the digits
+        // Read the number of digits and whether it is negative from the file
+        // Digits need to be entered in Big-Endian order
         int size;
+        boolean is_negative;
         int[] digits;
+        int digit;
         int i = 0;
         size = PublicTape.read();
+        is_negative = (PublicTape.read()) == 1;
         digits = new int[size];
         while (i < size) {
-            digits[i] = PublicTape.read();
+            digit = PublicTape.read();
+            if (is_negative) {
+                digit = digit * -1;
+            }
+            digits[i] = digit;
             i++;
-        }        
+        }
+
+        // Does not print out negative numbers correctly (treats them not as 2-complements, but regular binary)
+        System.out.println(digits[0]);
+        System.out.println(digits[1]);
 
         Prover.answer(base);
     }
