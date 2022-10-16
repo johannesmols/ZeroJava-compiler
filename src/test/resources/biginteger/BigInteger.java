@@ -1,11 +1,5 @@
 class BigIntTest {
-    public static void main(String[] args) {
-        BigInteger a;
-        BigInteger b;
-
-        // Useless variables that are only needed because methods have to return something
-        boolean aux;
-
+    public static void main(String[] a) {
         // Define base of values that will be represented by the integers (defined in configs.hpp of Zilch source)
         // For 64-bit signed integers: (2^63)-1. Range of -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
         // For 32-bit signed integers: (2^31)-1. Range of -2,147,483,648 to 2,147,483,647
@@ -14,26 +8,11 @@ class BigIntTest {
         // I.e. (2<<14)-1 for 16-bit, (2<<30)-1 for 32-bit, (2<<62)-1 for 64-bit
         int base = (2 << 62) - 1;
 
-        a = new BigInteger();
-        aux = a.Init();
-
-        b = new BigInteger();
-        aux = b.Init();
-
-        //aux = a.Add(b);
-
-        Prover.answer(base);
-    }
-}
-
-class BigInteger {
-    int[] digits;
-    boolean is_negative;
-    
-    // Read the number of digits and whether it is negative from the file
-    // Digits need to be entered in Big-Endian order
-    public boolean Init() {
+        // Read the number of digits and whether it is negative from the file
+        // Digits need to be entered in Big-Endian order
         int size;
+        boolean is_negative;
+        int[] digits;
         int digit;
         int i = 0;
         size = PublicTape.read();
@@ -47,31 +26,11 @@ class BigInteger {
             digits[i] = digit;
             i++;
         }
-        return true;
-    }
 
-    public int GetLength() {
-        return digits.length;
-    }
+        // Does not print out negative numbers correctly (treats them not as 2-complements, but regular binary)
+        System.out.println(digits[0]);
+        System.out.println(digits[1]);
 
-    public boolean Add(BigInteger other) {
-        return true;
+        Prover.answer(base);
     }
-
-    public boolean Subtract(BigInteger other) {
-        return true;
-    }
-
-    public boolean Multiply(BigInteger other) {
-        return true;
-    }
-
-    public boolean Divide(BigInteger other) {
-        return true;
-    }
-
-    // Apparently a class can only have 6 methods???
-    /*public boolean Modulo(BigInteger other) {
-        return true;
-    }*/
 }
