@@ -50,11 +50,40 @@ class BigInteger {
         return true;
     }
 
+    public boolean InitPrivate() {
+        int size;
+        int digit;
+        int i = 0;
+        size = PrivateTape.read();
+        is_negative = (PrivateTape.read()) == 1;
+        digits = new int[size];
+        while (i < size) {
+            digit = PrivateTape.read();
+            if (is_negative) {
+                digit = digit * -1;
+            }
+            digits[i] = digit;
+            i++;
+        }
+        return true;
+    }
+
     public int GetLength() {
         return digits.length;
     }
 
-    public boolean Add(BigInteger other) {
+    public int[] GetDigits() {
+        return digits;
+    }
+
+    public boolean IsNegative() {
+        return is_negative;
+    }
+}
+
+// Fails, because too many methods???
+class BigInterOps {
+    /*public boolean Add(BigInteger other) {
         return true;
     }
 
@@ -70,8 +99,7 @@ class BigInteger {
         return true;
     }
 
-    // Apparently a class can only have 6 methods???
-    /*public boolean Modulo(BigInteger other) {
+    public boolean Modulo(BigInteger other) {
         return true;
     }*/
 }

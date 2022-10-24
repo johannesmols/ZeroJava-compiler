@@ -63,8 +63,6 @@ class PaillierDecryptionBigInt {
             i++;
         }
 
-
-
         Prover.answer(base);
     }
 }
