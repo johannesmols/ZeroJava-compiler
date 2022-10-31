@@ -21,6 +21,7 @@ class BigIntTest {
         int tmp_res;
 
         // Temporary values for looping, reading in values, etc.
+        boolean is_negative;
         int size;
         int digit;
         int i = 0;
@@ -28,23 +29,27 @@ class BigIntTest {
         // Read the number of digits and whether it is negative from the file
         // Digits need to be entered in Little-Endian order
         size = PublicTape.read();
+        is_negative = ((PublicTape.read()) == 1);
         digits_a = new int[size];
         while (i < size) {
             digits_a[i] = PublicTape.read();
+            if (is_negative) {
+                digits_a[i] = (digits_a[i]) * -1;
+            }
             i++;
         }
 
         i = 0;
         size = PublicTape.read();
+        is_negative = ((PublicTape.read()) == 1);
         digits_b = new int[size];
         while (i < size) {
             digits_b[i] = PublicTape.read();
+            if (is_negative) {
+                digits_b[i] = (digits_b[i]) * -1;
+            }
             i++;
         }
-
-        // Does not print out negative numbers correctly (treats them not as 2-complements, but regular binary)
-        //System.out.println(digits_a[0]);
-        //System.out.println(digits_b[0]);
 
         // Addition of A and B
         carry = 0;
