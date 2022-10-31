@@ -52,7 +52,7 @@ class BigIntTest {
         largest_size = ((digits_a.length) >= (digits_b.length)) ? digits_a.length : digits_b.length;
         // If there is no carry at the end, the array unfortunately still gets an additional element
         // Can't resize arrays, so we would have to check at the end and copy the values to a new array
-        digits_res = new int[largest_size];
+        digits_res = new int[largest_size + 1];
         while (i < largest_size) {
             // Check if A has more digits
             if (i < (digits_a.length)) {
@@ -72,21 +72,28 @@ class BigIntTest {
             if ((tmp_res >= (base + 1)) && (tmp_res < 0)) { // base + 1 gets the minimum possible value (in negative space)
                 // Overflow occured
                 digits_res[i] = (tmp_res + base) + 2; // Overflow goes in negative numbers, so put it back into positive space
-                carry = base; // Set carry to max value
+                carry = 1; // Set carry to 1
             } else {
                 digits_res[i] = tmp_res;
+                carry = 0;
             }
             i++;
         }
 
+        if (carry > 0) {
+            digits_res[largest_size] = carry;
+        } else {
+            // Accessing this index will otherwise throw a runtime exception (uninitialized)
+            digits_res[largest_size] = 0;
+        }
+
         // Print out resulting digits in base 10
         i = 0;
-        System.out.println(largest_size);
         while (i < largest_size) {
             System.out.println(digits_res[i]);
             i++;
         }
 
-        Prover.answer(digits_res[1]);
+        Prover.answer(digits_res[0]);
     }
 }
