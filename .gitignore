@@ -5,6 +5,7 @@
 *.zmips
 *.opt
 *.txt
+!src/test/resources/biginteger-multiplication/pubtape.txt
 *.out
 *-jtb.jj
 
