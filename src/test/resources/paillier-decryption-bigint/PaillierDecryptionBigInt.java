@@ -47,21 +47,24 @@ class PaillierDecryptionBigInt {
 
         // Read Lambda of the private key
         i = 0;
-        size = PublicTape.read();
+        size = PrivateTape.read();
         privateLambdaDigits = new int[size];
         while (i < size) {
-            privateLambdaDigits[i] = PublicTape.read();
+            privateLambdaDigits[i] = PrivateTape.read();
             i++;
         }
 
         // Read Mu of the private key
         i = 0;
-        size = PublicTape.read();
+        size = PrivateTape.read();
         privateMuDigits = new int[size];
         while (i < size) {
-            privateMuDigits[i] = PublicTape.read();
+            privateMuDigits[i] = PrivateTape.read();
             i++;
         }
+
+        // Exponentiate the encrypted result by the private key's lambda
+        
 
         Prover.answer(base);
     }
