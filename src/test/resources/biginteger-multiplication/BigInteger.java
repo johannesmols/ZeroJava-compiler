@@ -14,30 +14,30 @@ class BigIntTest {
         int[] y;
         int[] result;
 
-        int result_r = zero;
-        int carry = zero;
-        int x_digit_value = zero;
-        int y_digit_value = zero;
-        int tmp_val = zero;
-        int input_val = zero;
+        int result_r;
+        int carry ;
+        int x_digit_value ;
+        int y_digit_value ;
+        int tmp_val;
+        int input_val;
  
  
         // int x_digit_i = zero;
         // int y_digit_i = zero;
-        int i = zero;
+        int i = 0;
 
         int x_digit_i_r = zero;
         int y_digit_i_r = zero;
 
-        // LOL SETTING THIS SHIT TO "ZERO" WORKED
-        int x_number_of_digits = zero;
-        int y_number_of_digits = zero;
-        int result_number_of_digits = zero;
+        
+        int x_number_of_digits ;
+        int y_number_of_digits ;
+        int result_number_of_digits ;
 
   
-        int result_digit_i = zero;
+        int result_digit_i ;
 
-        int finished = zero;
+        int finished ;
 
         // int addition = 1;
         // int multiplication = 0;
@@ -51,24 +51,26 @@ class BigIntTest {
             i++;
         }
 
-        i = zero;
+        i = 0;
 
         y_number_of_digits = PublicTape.read();
         y = new int[y_number_of_digits];
         
+        // result_number_of_digits = 21;
+       
         result_number_of_digits = (x_number_of_digits > y_number_of_digits) ? x_number_of_digits + 1 : y_number_of_digits + 1;
 
         
         result = new int[result_number_of_digits];
-
+        
         while (i < y_number_of_digits) {
             y[i] = PublicTape.read();
             i++;
         }
         
-        i = zero;
+        i = 0;
 
-
+        
         while (i < (result.length)) { 
             x_digit_i_r = (x.length) - i;
             y_digit_i_r = (y.length) - i;
@@ -88,33 +90,35 @@ class BigIntTest {
             }
             i++;
         }
-
+        
         //setting this to "zero" bricks it
         i = 0;
 
         
-        if (carry > 0)
-            result[result_number_of_digits] = 1;
-        else
-            // Accessing this index will otherwise throw a runtime exception (uninitialized)
-            result[result_number_of_digits] = 0;
-    
 
+    
+        System.out.println(result_number_of_digits);   
         // Print out resulting digits in base 10
         // System.out.println(result_number_of_digits);
 
         //nice this prints out 0. awesome.
-        System.out.println(result_number_of_digits);
+        // System.out.println(result_number_of_digits);
   
         while (i < result_number_of_digits) {
    
-            result_r = result_r + (result[i]);
+            // result_r = result_r + (result[i]);
             // System.out.println(result_r);
             System.out.println(result[i]);
             i++;
         }
 
-        Prover.answer(result[2]);
+        if (carry > 0)
+            result[result_number_of_digits] = 1;
+        else
+            // Accessing this index will otherwise throw a runtime exception (uninitialized)
+            result[result_number_of_digits] = 0;
+
+        Prover.answer(result[0]);
     }
     
 }
