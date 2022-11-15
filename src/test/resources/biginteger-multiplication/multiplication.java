@@ -74,9 +74,10 @@ class BigIntTest {
         //     i++;
         // }
         //its ok to give the result array more than needed space
-        digits_res = new int[(largest_size + smallest_size) + 1];
+        digits_res = new int[((largest_size + smallest_size) + 1)];
         i = 0;
         j = 0;
+        //Iterate over the digits in the biggest number
         while (i < largest_size) {
             // j = 0;
             carry = 0;
@@ -89,6 +90,11 @@ class BigIntTest {
                 a_val = 0;
             }
 
+            //for each digit og the larger number, compute long multiplication
+            //by iterating over the digits in the smaller number
+
+            //note that currently a is assumed to be the larger number
+
             while (j < smallest_size){
                 k = i + j;
 
@@ -98,12 +104,24 @@ class BigIntTest {
                     b_val = 0;
                 }
 
-                digits_res[k] = ((digits_res[k]) + carry) + (a_val * b_val);
-                carry = (digits_res[k]) / base;
-                digits_res[k] = (digits_res[k]) % base;
-                j++;
+                tmp_res = (carry) + (a_val * b_val);
+
+                if ((tmp_res >= (base + 1)) && (tmp_res < 0)) { // base + 1 gets the minimum possible value (in negative space)
+                    // Overflow occured
+                    digits_res[k] = (tmp_res + base) + 2; // Overflow goes in negative numbers, so put it back into positive space
+                    carry = (digits_res[k]) / base;
+                    digits_res[k] = (digits_res[k]) % base;
+                } else {
+                    digits_res[k] = tmp_res;
+                    carry = 0;
+                }
+
+                // digits_res[k] = tmp_res;
+                // carry = (digits_res[k]) / base;
+                // digits_res[k] = (digits_res[k]) % base;
+                j++; 
             }
-            digits_res[(largest_size + j)] = carry;
+            digits_res[largest_size + j] = carry;
             
  
             // tmp_res = (a_val + b_val) + carry;

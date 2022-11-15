@@ -216,40 +216,41 @@ __L15_MAIN__
 MOVE r34 r34 0
 MOVE r32 r32 r34
 __L16_MAIN__
-LW r34 r17 r17
-SLT r9 r28 r34
+MULT r9 r33 r32
+MOVE r32 r32 r9
+ADD r9 r19 r32
+MOVE r32 r32 r9
+MOVE r34 r34 1
+ADD r9 r25 r34
 MOVE r34 r34 r9
-BEQ r34 r0 __Runtime_Error__
+SLE r9 r34 r32
+MOVE r34 r34 r9
+MOVE r26 r26 r34
+BEQ r34 r0 __L19_MAIN__
+MOVE r34 r34 0
+SLT r9 r32 r34
+MOVE r34 r34 r9
+MOVE r26 r26 r34
+__L19_MAIN__
+BEQ r26 r0 __L17_MAIN__
+LW r26 r17 r17
+SLT r9 r28 r26
+MOVE r26 r26 r9
+BEQ r26 r0 __Runtime_Error__
 SLT r9 r28 0
-MOVE r34 r34 r9
-MOVE r26 r26 1
-SUB r9 r26 r34
-MOVE r34 r34 r9
-BEQ r34 r0 __Runtime_Error__
+MOVE r26 r26 r9
+MOVE r34 r34 1
+SUB r9 r34 r26
+MOVE r26 r26 r9
+BEQ r26 r0 __Runtime_Error__
 ADD r9 r17 1
 MOVE r26 r26 r9
 ADD r9 r26 r28
 MOVE r26 r26 r9
-LW r34 r17 r17
-SLT r9 r28 r34
+ADD r9 r32 r25
 MOVE r34 r34 r9
-BEQ r34 r0 __Runtime_Error__
-SLT r9 r28 0
-MOVE r34 r34 r9
-MOVE r29 r29 1
-SUB r9 r29 r34
-MOVE r34 r34 r9
-BEQ r34 r0 __Runtime_Error__
-ADD r9 r17 1
-MOVE r29 r29 r9
-ADD r9 r29 r28
-MOVE r29 r29 r9
-LW r29 r29 r29
-ADD r9 r29 r19
-MOVE r29 r29 r9
-MULT r9 r33 r32
-MOVE r32 r32 r9
-ADD r9 r29 r32
+MOVE r29 r29 2
+ADD r9 r34 r29
 MOVE r29 r29 r9
 SW r29 r26 r26
 LW r26 r17 r17
@@ -290,18 +291,38 @@ MOVE r29 r29 r9
 BEQ r29 r0 __Runtime_Error__
 SLT r9 r28 0
 MOVE r29 r29 r9
-MOVE r32 r32 1
-SUB r9 r32 r29
+MOVE r34 r34 1
+SUB r9 r34 r29
 MOVE r29 r29 r9
 BEQ r29 r0 __Runtime_Error__
 ADD r9 r17 1
 MOVE r29 r29 r9
 ADD r9 r29 r28
 MOVE r29 r29 r9
-LW r28 r29 r29
-UMOD r9 r28 r25
-MOVE r28 r28 r9
-SW r28 r26 r26
+LW r29 r29 r29
+UMOD r9 r29 r25
+MOVE r29 r29 r9
+SW r29 r26 r26
+JMP r0 r0 __L18_MAIN__
+__L17_MAIN__
+LW r26 r17 r17
+SLT r9 r28 r26
+MOVE r26 r26 r9
+BEQ r26 r0 __Runtime_Error__
+SLT r9 r28 0
+MOVE r26 r26 r9
+MOVE r29 r29 1
+SUB r9 r29 r26
+MOVE r26 r26 r9
+BEQ r26 r0 __Runtime_Error__
+ADD r9 r17 1
+MOVE r26 r26 r9
+ADD r9 r26 r28
+MOVE r26 r26 r9
+SW r32 r26 r26
+MOVE r26 r26 0
+MOVE r19 r19 r26
+__L18_MAIN__
 ADD r9 r27 1
 MOVE r27 r27 r9
 JMP r0 r0 __L13_MAIN__
@@ -330,7 +351,7 @@ __L10_MAIN__
 MOVE r25 r25 0
 SLT r9 r25 r19
 MOVE r25 r25 r9
-BEQ r25 r0 __L17_MAIN__
+BEQ r25 r0 __L20_MAIN__
 LW r25 r17 r17
 SLT r9 r16 r25
 MOVE r25 r25 r9
@@ -346,8 +367,8 @@ MOVE r25 r25 r9
 ADD r9 r25 r16
 MOVE r25 r25 r9
 SW r19 r25 r25
-JMP r0 r0 __L18_MAIN__
-__L17_MAIN__
+JMP r0 r0 __L21_MAIN__
+__L20_MAIN__
 LW r25 r17 r17
 SLT r9 r16 r25
 MOVE r25 r25 r9
@@ -364,15 +385,15 @@ ADD r9 r25 r16
 MOVE r25 r25 r9
 MOVE r26 r26 0
 SW r26 r25 r25
-__L18_MAIN__
+__L21_MAIN__
 MOVE r25 r25 0
 MOVE r18 r18 r25
-__L19_MAIN__
+__L22_MAIN__
 ADD r9 r16 r15
 MOVE r25 r25 r9
 SLT r9 r18 r25
 MOVE r25 r25 r9
-BEQ r25 r0 __L20_MAIN__
+BEQ r25 r0 __L23_MAIN__
 LW r25 r17 r17
 SLT r9 r18 r25
 MOVE r25 r25 r9
@@ -391,8 +412,8 @@ LW r25 r25 r25
 PRINT r0 r0 r25
 ADD r9 r18 1
 MOVE r18 r18 r9
-JMP r0 r0 __L19_MAIN__
-__L20_MAIN__
+JMP r0 r0 __L22_MAIN__
+__L23_MAIN__
 LW r25 r17 r17
 MOVE r26 r26 0
 SLT r9 r26 r25
