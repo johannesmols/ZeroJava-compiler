@@ -70,7 +70,7 @@ class BigIntTest {
 
             tmp_res = (a_val + b_val) + carry;
             if ((tmp_res >= (base + 1)) && (tmp_res < 0)) { // base + 1 gets the minimum possible value (in negative space)
-                // Overflow occured
+                // Overflow occurred
                 digits_res[i] = (tmp_res + base) + 2; // Overflow goes in negative numbers, so put it back into positive space
                 carry = 1; // Set carry to 1
             } else {
