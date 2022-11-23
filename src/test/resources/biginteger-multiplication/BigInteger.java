@@ -26,14 +26,15 @@ class BigIntTest {
         int result_number_of_digits = 0;
 
         // Index of a digit in a number    
-        int a_digit_i;
-        int b_digit_i;
+        int a_digit_i = 0;
+        int b_digit_i = 0;
         int result_digit_i;
+
+        int finished = 0;
 
         // int addition = 1;
         // int multiplication = 0;
 
-        a_digit_i = 0;
         a_number_of_digits = PublicTape.read();
         a = new int[a_number_of_digits];
         while (a_digit_i < a_number_of_digits) {
@@ -42,7 +43,6 @@ class BigIntTest {
         }
         a_digit_i = 0;
 
-        b_digit_i = 0;
         b_number_of_digits = PublicTape.read();
         b = new int[b_number_of_digits];
         while (b_digit_i < b_number_of_digits) {
@@ -51,7 +51,7 @@ class BigIntTest {
         }
         b_digit_i = 0;
 
-        result_number_of_digits = ((a_number_of_digits) >= (b_number_of_digits)) ? a_number_of_digits + 1 : b_number_of_digits + 1;
+        result_number_of_digits = ((a_number_of_digits) >= (b_number_of_digits)) ? a_number_of_digits : b_number_of_digits;
 
         result = new int[result_number_of_digits];
  
@@ -73,9 +73,15 @@ class BigIntTest {
             result_digit_i++;
         }
 
-
-        if (carry > 0)
+        
+        // result[result_number_of_digits] = carry;
+        
+        if (carry > 0){
             result[result_number_of_digits] = carry;
+            result_number_of_digits++;
+        }
+            
+            
         else
             // Accessing this index will otherwise throw a runtime exception (uninitialized)
             result[result_number_of_digits] = 0;
