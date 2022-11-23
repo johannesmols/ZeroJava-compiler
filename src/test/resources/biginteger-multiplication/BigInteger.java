@@ -1,67 +1,87 @@
 class BigIntTest {
-    public static void main(String[] input_string) {
+    public static void main(String[] a) {
+        int zero = 0;
         // Define base of values that will be represented by the integers (defined in configs.hpp of Zilch source) 
         // For 64-bit signed integers: (2^63)-1. Range of -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 (9223372036854775807) (3037000499 squared)
 
-        // Use bit shift operator on exponent minus one as it works for powers of 2
+        // Use bit shift operator on expxnt minus x as it works for powers of 2
         // I.e. (2<<14)-1 for 16-bit, (2<<30)-1 for 32-bit, (2<<62)-1 for 64-bit
         // int base = (2 << 62) - 1;
 
         
         // The numbers are stored in an array, where each index represents a single digit 
-        // Both numbers a and b are read from one single file, where the digits of each number..
-        // ..are prepend by the amount of digits that number contains 
-        int[] a;
-        int[] b;
+        // Both numbers a and b are read from x single file. The two first number represent
+        //  the amount of digits thr numbers contain. 
+        int[] x;
+        int[] y;
         int[] result;
 
-        int carry = 0;
-        int a_digit_value = 0;
-        int b_digit_value = 0;
-        int tmp_val = 0;
-        int rem_val = 0;
+        int carry = zero;
+        int x_digit_value = zero;
+        int y_digit_value = zero;
+        int tmp_val = zero;
+        int rem_val = zero;
+ 
+        
+       
+        int x_digit_i = zero;
+        int y_digit_i = zero;
+        int x_digit_i_r = zero;
+        int y_digit_i_r = zero;
 
-        int a_number_of_digits = 0;
-        int b_number_of_digits = 0;
-        int result_number_of_digits = 0;
+        // LOL SETTING THIS SHIT TO "ZERO" WORKED
+        int x_number_of_digits = zero;
+        int y_number_of_digits = zero;
+        int result_number_of_digits = zero;
 
         // Index of a digit in a number    
-        int a_digit_i = 0;
-        int b_digit_i = 0;
-        int result_digit_i;
+        
+       
+        int result_digit_i = zero;
 
-        int finished = 0;
+        int finished = zero;
 
         // int addition = 1;
         // int multiplication = 0;
 
-        a_number_of_digits = PublicTape.read();
-        a = new int[a_number_of_digits];
-        while (a_digit_i < a_number_of_digits) {
-            a[a_digit_i] = PublicTape.read();
-            a_digit_i++;
+        x_number_of_digits = PublicTape.read();
+
+        
+        x = new int[x_number_of_digits];
+        while (x_digit_i < x_number_of_digits) {
+            x[x_digit_i] = PublicTape.read();
+            x_digit_i++;
         }
-        a_digit_i = 0;
 
-        b_number_of_digits = PublicTape.read();
-        b = new int[b_number_of_digits];
-        while (b_digit_i < b_number_of_digits) {
-            b[b_digit_i] = PublicTape.read();
-            b_digit_i++;
-        }
-        b_digit_i = 0;
+        y_number_of_digits = PublicTape.read();
 
-        result_number_of_digits = ((a_number_of_digits) >= (b_number_of_digits)) ? a_number_of_digits : b_number_of_digits;
+        
+        result_number_of_digits = (x_number_of_digits > y_number_of_digits) ? x_number_of_digits + 1 : y_number_of_digits + 1;
 
+        y = new int[y_number_of_digits];
         result = new int[result_number_of_digits];
- 
-        while (result_digit_i < result_number_of_digits) {
-            a_digit_value = a[a_digit_i];
-            a_digit_i++;
-            b_digit_value = b[b_digit_i];
-            b_digit_i++;
+        while (y_digit_i < y_number_of_digits) {
+            y[y_digit_i] = PublicTape.read();
+            y_digit_i++;
+        }
+        
 
-            tmp_val = (a_digit_value + b_digit_value) + carry;
+        //Setting this to "zero" bricks it
+        x_digit_i = 0;
+        y_digit_i = zero;
+        result_digit_i = zero;
+        
+
+        while (result_digit_i < result_number_of_digits) {
+            x_digit_i_r = result_number_of_digits - x_digit_i;
+            x_digit_value = x[x_digit_i_r];
+            if (x_digit_i < x_number_of_digits)
+                x_digit_i++;
+            y_digit_i_r = result_number_of_digits - y_digit_i;
+            y_digit_value = y[y_digit_i_r];
+            y_digit_i++;
+
+            tmp_val = (y_digit_value + y_digit_value) + carry;
             
             if (tmp_val > 9) { 
                 result[result_digit_i] = tmp_val - 10;
@@ -96,7 +116,7 @@ class BigIntTest {
             result_digit_i++;
         }
 
-        Prover.answer(result[0]);
+        Prover.answer(result[result_number_of_digits]);
     }
     
 }
