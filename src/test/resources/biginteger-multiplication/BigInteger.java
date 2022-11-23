@@ -1,6 +1,7 @@
 class BigIntTest {
     public static void main(String[] a) {
         int zero = 0;
+   
         // Define base of values that will be represented by the integers (defined in configs.hpp of Zilch source) 
         // For 64-bit signed integers: (2^63)-1. Range of -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 (9223372036854775807) (3037000499 squared)
 
@@ -9,23 +10,22 @@ class BigIntTest {
         // int base = (2 << 62) - 1;
 
         
-        // The numbers are stored in an array, where each index represents a single digit 
-        // Both numbers a and b are read from x single file. The two first number represent
-        //  the amount of digits thr numbers contain. 
         int[] x;
         int[] y;
         int[] result;
 
+        int result_r = zero;
         int carry = zero;
         int x_digit_value = zero;
         int y_digit_value = zero;
         int tmp_val = zero;
-        int rem_val = zero;
+        int input_val = zero;
  
-        
-       
-        int x_digit_i = zero;
-        int y_digit_i = zero;
+ 
+        // int x_digit_i = zero;
+        // int y_digit_i = zero;
+        int i = zero;
+
         int x_digit_i_r = zero;
         int y_digit_i_r = zero;
 
@@ -34,9 +34,7 @@ class BigIntTest {
         int y_number_of_digits = zero;
         int result_number_of_digits = zero;
 
-        // Index of a digit in a number    
-        
-       
+  
         int result_digit_i = zero;
 
         int finished = zero;
@@ -45,78 +43,78 @@ class BigIntTest {
         // int multiplication = 0;
 
         x_number_of_digits = PublicTape.read();
-
-        
         x = new int[x_number_of_digits];
-        while (x_digit_i < x_number_of_digits) {
-            x[x_digit_i] = PublicTape.read();
-            x_digit_i++;
+
+        while (i < x_number_of_digits) {
+            input_val = PublicTape.read();
+            x[i] = input_val;
+            i++;
         }
 
-        y_number_of_digits = PublicTape.read();
+        i = zero;
 
+        y_number_of_digits = PublicTape.read();
+        y = new int[y_number_of_digits];
         
         result_number_of_digits = (x_number_of_digits > y_number_of_digits) ? x_number_of_digits + 1 : y_number_of_digits + 1;
 
-        y = new int[y_number_of_digits];
+        
         result = new int[result_number_of_digits];
-        while (y_digit_i < y_number_of_digits) {
-            y[y_digit_i] = PublicTape.read();
-            y_digit_i++;
+
+        while (i < y_number_of_digits) {
+            y[i] = PublicTape.read();
+            i++;
         }
         
+        i = zero;
 
-        //Setting this to "zero" bricks it
-        x_digit_i = 0;
-        y_digit_i = zero;
-        result_digit_i = zero;
-        
 
-        while (result_digit_i < result_number_of_digits) {
-            x_digit_i_r = result_number_of_digits - x_digit_i;
-            x_digit_value = x[x_digit_i_r];
-            if (x_digit_i < x_number_of_digits)
-                x_digit_i++;
-            y_digit_i_r = result_number_of_digits - y_digit_i;
-            y_digit_value = y[y_digit_i_r];
-            y_digit_i++;
+        while (i < (result.length)) { 
+            x_digit_i_r = (x.length) - i;
+            y_digit_i_r = (y.length) - i;
+
+            x_digit_value = (x[i]);
+            y_digit_value = y[i];
+         
 
             tmp_val = (y_digit_value + y_digit_value) + carry;
             
             if (tmp_val > 9) { 
-                result[result_digit_i] = tmp_val - 10;
+                result[i] = tmp_val - 10;
                 carry = 1; 
             } else {
-                result[result_digit_i] = tmp_val;
+                result[i] = tmp_val;
                 carry = 0;
             }
-            result_digit_i++;
+            i++;
         }
 
+        //setting this to "zero" bricks it
+        i = 0;
+
         
-        // result[result_number_of_digits] = carry;
-        
-        if (carry > 0){
-            result[result_number_of_digits] = carry;
-            result_number_of_digits++;
-        }
-            
-            
+        if (carry > 0)
+            result[result_number_of_digits] = 1;
         else
             // Accessing this index will otherwise throw a runtime exception (uninitialized)
             result[result_number_of_digits] = 0;
     
 
         // Print out resulting digits in base 10
+        // System.out.println(result_number_of_digits);
+
+        //nice this prints out 0. awesome.
         System.out.println(result_number_of_digits);
-        result_digit_i = 0;
-        while (result_digit_i < result_number_of_digits) {
-           
-            System.out.println(result[result_digit_i]);
-            result_digit_i++;
+  
+        while (i < result_number_of_digits) {
+   
+            result_r = result_r + (result[i]);
+            // System.out.println(result_r);
+            System.out.println(result[i]);
+            i++;
         }
 
-        Prover.answer(result[result_number_of_digits]);
+        Prover.answer(result[2]);
     }
     
 }
